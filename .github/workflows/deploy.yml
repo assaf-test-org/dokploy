@@ -7,7 +7,10 @@ on:
 
 jobs:
   build-and-push-cloud-image:
-    runs-on: ubuntu-latest
+    runs-on: depot-ubuntu-24.04-4	
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -15,9 +18,10 @@ jobs:
 
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+        uses: depot/build-push-action@v1
         with:
           context: .
+          project: w97qrww01h
           file: ./Dockerfile.cloud
           push: false
           tags: |
@@ -29,16 +33,20 @@ jobs:
             NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=dummy
 
   build-and-push-schedule-image:
-    runs-on: ubuntu-latest
+    runs-on: depot-ubuntu-24.04-4	
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+        uses: depot/build-push-action@v1
         with:
           context: .
+          project: w97qrww01h
           file: ./Dockerfile.schedule
           push: false
           tags: |
@@ -46,16 +54,19 @@ jobs:
           platforms: linux/amd64
 
   build-and-push-server-image:
-    runs-on: ubuntu-latest
-
+    runs-on: depot-ubuntu-24.04-4	
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+        uses: depot/build-push-action@v1
         with:
           context: .
+          project: w97qrww01h
           file: ./Dockerfile.server
           push: false
           tags: |
